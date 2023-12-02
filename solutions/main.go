@@ -10,6 +10,8 @@ import (
 	
 	solution_1 "jshe.dev/advent_template/solutions/1"
 	
+	solution_2 "jshe.dev/advent_template/solutions/2"
+	
 )
 
 func main() {
@@ -26,6 +28,8 @@ func main() {
 	functions := []func(inputLines []string){
 			
 			solution_1.Solution,
+			
+			solution_2.Solution,
 			
 	}
 
