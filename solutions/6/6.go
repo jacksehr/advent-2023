@@ -2,34 +2,21 @@ package solution_6
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
 
-func getWins(t int, d int) int {
-	l, r := make(chan int, 1), make(chan int, 1)
+func getWins(t, d int) int {
+	tF, dF := float64(t), float64(d)
 
-	go func() {
-		for timeHeld := 0; timeHeld < t; timeHeld++ {
-			travelled := timeHeld * (t - timeHeld)
-			if travelled > d {
-				l <- timeHeld
-				return
-			}
-		}
-	}()
+	roots := [2]float64{
+		// quadratic formula to solve for x in: x(t - x) > d
+		(tF - math.Sqrt(math.Pow(tF, 2)-4*dF)) / 2,
+		(tF + math.Sqrt(math.Pow(tF, 2)-4*dF)) / 2,
+	}
 
-	go func() {
-		for timeHeld := t; timeHeld >= 0; timeHeld-- {
-			travelled := timeHeld * (t - timeHeld)
-			if travelled > d {
-				r <- timeHeld
-				return
-			}
-		}
-	}()
-
-	return <-r - <-l + 1
+	return int(math.Floor(roots[1])-math.Ceil(roots[0])) + 1
 }
 
 func partOne(inputLines []string) {
