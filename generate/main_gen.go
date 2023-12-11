@@ -1,8 +1,10 @@
 package main
 
 import (
+	"io/fs"
 	"log"
 	"os"
+	"slices"
 	"strings"
 	"text/template"
 )
@@ -18,6 +20,13 @@ func main() {
 	assertErrNil(err)
 
 	solutionsFound, err := os.ReadDir("./solutions")
+	slices.SortStableFunc(solutionsFound, func(a, b fs.DirEntry) int {
+		if len(a.Name()) == len(b.Name()) {
+			return strings.Compare(a.Name(), b.Name())
+		}
+
+		return len(a.Name()) - len(b.Name())
+	})
 	assertErrNil(err)
 
 	templateData := struct {
