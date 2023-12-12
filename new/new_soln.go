@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -29,6 +30,14 @@ func main() {
 	}
 	solns = slices.DeleteFunc(solns, func(soln os.DirEntry) bool {
 		return !soln.IsDir()
+	})
+
+	slices.SortStableFunc(solns, func(a, b fs.DirEntry) int {
+		if len(a.Name()) == len(b.Name()) {
+			return strings.Compare(a.Name(), b.Name())
+		}
+
+		return len(a.Name()) - len(b.Name())
 	})
 
 	numNewSoln := 1
