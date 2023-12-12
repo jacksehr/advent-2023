@@ -30,6 +30,8 @@ import (
 	
 	solution_11 "jshe.dev/advent_template/solutions/11"
 	
+	solution_12 "jshe.dev/advent_template/solutions/12"
+	
 )
 
 func main() {
@@ -66,6 +68,8 @@ func main() {
 			solution_10.Solution,
 			
 			solution_11.Solution,
+			
+			solution_12.Solution,
 			
 	}
 
